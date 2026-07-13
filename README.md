@@ -1,5 +1,9 @@
 # 鹏鹏看图 / LiteImageViewer
 
+![鹏鹏看图 / LiteImageViewer](assets/readme-cover.svg)
+
+[![CI](https://github.com/jervy/kantu/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jervy/kantu/actions/workflows/ci.yml)
+
 轻量、干净、无广告的 Windows 图片查看与处理工具。
 
 ## 项目概览
@@ -27,11 +31,16 @@
 - 普通目录版：`artifacts/publish/LiteImageViewer/Release/win-x64/`
 - 单文件版：`artifacts/publish/LiteImageViewer/Release/win-x64-single/`
 
+发布资产（GitHub Release）会同时提供两个版本：
+
+- `kantu-win-x64.zip`
+- `kantu-win-x64-single.zip`
+
 ## 许可与合规
 
 - 本仓库代码以 **Apache-2.0** 许可发布，见 `LICENSE`
 - 第三方依赖与归属说明见 `THIRD_PARTY_NOTICES.md`
-- 仓库内图标等素材为项目内生成或项目自有内容
+- 发布模板与口径说明见 `RELEASE.md`
 
 ## 仓库约定
 
@@ -49,4 +58,6 @@ LiteImageViewer/
 FloatingImageViewerApp/
 PACKAGING.md
 THIRD_PARTY_NOTICES.md
+RELEASE.md
+CHANGELOG.md
 ```
