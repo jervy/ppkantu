@@ -51,7 +51,7 @@ D:\work\kantu\artifacts\publish\ppkantu\Release\win-x64\
 
 ```text
 ppkantu.exe
-鹏鹏看图.dll
+ppkantu.dll
 ppkantu.deps.json
 ppkantu.runtimeconfig.json
 相关依赖 dll
