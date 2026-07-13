@@ -19,6 +19,8 @@ public static class FileAssociationService
         @"Software\Classes\Applications\ppkantu.exe";
     private const string LegacyApplicationsKey =
         @"Software\Classes\Applications\鹏鹏看图.exe";
+    private const string ApplicationMarker = "ppkantu.Managed";
+    private const string ApplicationMarkerValue = "1";
     private const string RegisteredAppKey = $@"Software\RegisteredApplications";
     private const string AppCapabilitiesKey = $@"Software\{AppName}\Capabilities";
 
@@ -51,6 +53,19 @@ public static class FileAssociationService
     {
         if (!HasApplicationRegistration() || IsRegisteredForCurrentExecutable())
             return false;
+
+        try
+        {
+            using var hkcu = Registry.CurrentUser;
+            using var appKey = hkcu.OpenSubKey(ApplicationsKey);
+            var marker = appKey?.GetValue(ApplicationMarker) as string;
+            if (!string.Equals(marker, ApplicationMarkerValue, StringComparison.Ordinal))
+                return false;
+        }
+        catch
+        {
+            return false;
+        }
 
         return Unassociate() && Associate();
     }
@@ -249,6 +264,7 @@ public static class FileAssociationService
 
         hkcu.DeleteSubKeyTree(LegacyApplicationsKey, throwOnMissingSubKey: false);
         using var appKey = hkcu.CreateSubKey(ApplicationsKey);
+        appKey.SetValue(ApplicationMarker, ApplicationMarkerValue, RegistryValueKind.String);
         using var shellKey = appKey.CreateSubKey(@"shell\open\command");
         shellKey.SetValue(null, BuildOpenCommand(ExePath));
         using var iconKey = appKey.CreateSubKey("DefaultIcon");

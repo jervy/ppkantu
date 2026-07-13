@@ -34,6 +34,10 @@ echo.
 
 set "PROGID=ppkantu.ImageFile"
 set "APPKEY=HKCU\Software\Classes\Applications\ppkantu.exe"
+set "APP_MARKER=ppkantu.Managed"
+set "APPDATAKEY=HKCU\Software\ppkantu"
+set "CAPABILITIESKEY=HKCU\Software\ppkantu\Capabilities"
+set "REGISTERED_APPS=HKCU\Software\RegisteredApplications"
 set "LEGACY_APPKEY=HKCU\Software\Classes\Applications\鹏鹏看图.exe"
 
 :: ============================================
@@ -60,12 +64,19 @@ if errorlevel 1 (
 
 :: Remove any legacy application identity before registering the fixed identity.
 reg delete "%LEGACY_APPKEY%" /f >nul 2>&1
+reg add "%APPKEY%" /v "%APP_MARKER%" /t REG_SZ /d "1" /f >nul 2>&1
 reg add "%APPKEY%\shell\open\command" /ve /d "\"%EXE_PATH%\" \"%%1\"" /f >nul 2>&1
 reg add "%APPKEY%\DefaultIcon" /ve /d "\"%EXE_PATH%\",0" /f >nul 2>&1
 if errorlevel 1 (
     echo   [ERROR] Failed to register fixed application identity.
     exit /b 1
 )
+
+:: Register application capabilities and the fixed identity metadata.
+reg add "%CAPABILITIESKEY%" /v ApplicationName /t REG_SZ /d "鹏鹏看图" /f >nul 2>&1
+reg add "%CAPABILITIESKEY%" /v ApplicationDescription /t REG_SZ /d "轻量、干净、无广告的办公图片查看与处理工具" /f >nul 2>&1
+reg add "%CAPABILITIESKEY%" /v ApplicationIcon /t REG_SZ /d "\"%EXE_PATH%\",0" /f >nul 2>&1
+reg add "%REGISTERED_APPS%" /v ppkantu /t REG_SZ /d "Software\ppkantu\Capabilities" /f >nul 2>&1
 
 echo   OK - Fixed application identity registered.
 echo.

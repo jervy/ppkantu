@@ -9,8 +9,10 @@ echo.
 
 set "PROGID=ppkantu.ImageFile"
 set "APPKEY=HKCU\Software\Classes\Applications\ppkantu.exe"
+set "APP_MARKER=ppkantu.Managed"
 set "LEGACY_APPKEY=HKCU\Software\Classes\Applications\鹏鹏看图.exe"
 set "APPDATAKEY=HKCU\Software\ppkantu"
+set "CAPABILITIESKEY=HKCU\Software\ppkantu\Capabilities"
 set "REGISTERED_APPS=HKCU\Software\RegisteredApplications"
 
 :: ============================================
