@@ -12,6 +12,7 @@
         MinHeight="400" MinWidth="500"
         WindowStartupLocation="CenterScreen"
         Icon="Assets/AppIcon-256.png"
+        Title="鹏鹏看图 V1.0"
         AllowDrop="True"
         DragEnter="Window_DragEnter"
         Drop="Window_Drop"

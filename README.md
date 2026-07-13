@@ -38,10 +38,9 @@ dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained fal
 - 普通目录版：`artifacts/publish/ppkantu/Release/win-x64/`
 - 单文件版：`artifacts/publish/ppkantu/Release/win-x64-single/`
 
-GitHub Release 资产命名为：
-
-- `ppkantu-win-x64.zip`
-- `ppkantu-win-x64-single.zip`
+- 发布资产：
+  - `ppkantu-win-x64.zip`
+  - `鹏鹏看图.exe`
 
 两种版本均为框架依赖版，目标机器需要 .NET 8 Windows Desktop Runtime。
 

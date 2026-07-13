@@ -13,7 +13,7 @@
       <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
       <AssemblyName>鹏鹏看图</AssemblyName>
       <RootNamespace>ppkantu</RootNamespace>
-      <Version>1.1.0</Version>
+      <Version>1.0.0</Version>
       <Authors>鹏鹏看图团队</Authors>
       <Description>鹏鹏看图：轻量、干净、无广告的 Windows 图片查看与处理工具</Description>
       <Product>鹏鹏看图</Product>

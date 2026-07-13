@@ -9,7 +9,7 @@ Use this as a checklist when cutting a new public release.
 ## Included artifacts
 
 - `ppkantu-win-x64.zip`
-- `ppkantu-win-x64-single.zip`
+- `鹏鹏看图.exe`
 
 ## Summary
 
