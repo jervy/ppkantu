@@ -1,0 +1,11 @@
+<Project>
+  <Target Name="CleanWpfTemporaryProjectOutputs" AfterTargets="Build;Publish">
+    <ItemGroup>
+      <_WpfTemporaryOutputDirs Include="$(ArtifactsRoot)bin\*_wpftmp\" />
+      <_WpfTemporaryOutputDirs Include="$(ArtifactsRoot)obj\*_wpftmp\" />
+      <_WpfTemporaryNugetFiles Include="$(ArtifactsRoot)obj\*_wpftmp.csproj.nuget.*" />
+    </ItemGroup>
+    <RemoveDir Directories="@(_WpfTemporaryOutputDirs)" />
+    <Delete Files="@(_WpfTemporaryNugetFiles)" />
+  </Target>
+</Project>

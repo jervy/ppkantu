@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <!-- WPF 会生成 *_wpftmp 临时项目；中间产物路径必须按项目隔离，避免 project.assets.json 冲突 -->
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)..\artifacts\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <!-- BaseIntermediateOutputPath 在 WPF SDK 项目内设置会触发 MSB3539，但这是当前方案下的已知无害警告；压制以保持发布日志干净。 -->
+    <NoWarn>$(NoWarn);MSB3539</NoWarn>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+</Project>

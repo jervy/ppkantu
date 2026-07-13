@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <!-- 统一构建配置，只保留 Debug / Release 两种配置。 -->
+    <Configurations>Debug;Release</Configurations>
+
+    <!-- 防止历史 bin/obj 和统一 artifacts 下的生成文件被 SDK 默认通配重新编译。 -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)\bin\**;$(MSBuildProjectDirectory)\obj\**;$(MSBuildThisFileDirectory)artifacts\**</DefaultItemExcludes>
+
+    <!-- 统一输出位置，避免各项目目录下分散出现 bin/Debug、bin/Release。 -->
+    <ArtifactsRoot>$(MSBuildThisFileDirectory)artifacts\</ArtifactsRoot>
+    <BaseOutputPath>$(ArtifactsRoot)bin\</BaseOutputPath>
+    <OutputPath>$(BaseOutputPath)$(MSBuildProjectName)\$(Configuration)\</OutputPath>
+
+    <!-- 发布包统一进入 artifacts/publish，避免和源码目录、旧 release 目录混在一起。 -->
+    <PublishDir>$(ArtifactsRoot)publish\$(MSBuildProjectName)\$(Configuration)\$(RuntimeIdentifier)\</PublishDir>
+    <PublishDir Condition="'$(PublishSingleFile)' == 'true'">$(ArtifactsRoot)publish\$(MSBuildProjectName)\$(Configuration)\$(RuntimeIdentifier)-single\</PublishDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <!-- Release 发布包不输出 PDB，目录版和单文件版都保持干净。 -->
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+</Project>

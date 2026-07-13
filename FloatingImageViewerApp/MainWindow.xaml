@@ -1,0 +1,83 @@
+﻿<Window x:Class="FloatingImageViewerApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="FloatingImage" Height="240" Width="240"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Topmost="True" ResizeMode="CanResize"
+        ShowInTaskbar="False"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Loaded="Window_Loaded"
+        SizeChanged="Window_SizeChanged">
+    <Window.Resources>
+        <!-- MenuItem 去掉 Icon 列，避免"关闭"前出现空白 -->
+        <Style x:Key="NoIconMenuItemStyle" TargetType="MenuItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                Padding="8,5">
+                            <ContentPresenter ContentSource="Header"
+                                              RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#3399FF"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- 根 Grid：透明，窗口比内容多出右20/上20空间，供图钉悬浮 -->
+    <Grid>
+        <!-- 主内容区：黑色背景，向右和上缩进，给图钉腾位置 -->
+        <Grid x:Name="ContentGrid" Background="Black" Margin="0,20,20,0">
+            <!-- 图片：Uniform 保持比例，背景黑色填充空白 -->
+            <Image x:Name="FloatingImage" Stretch="Uniform">
+                <Image.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="关闭"
+                                  Style="{StaticResource NoIconMenuItemStyle}"
+                                  Click="CloseFloatingWindow_Click" />
+                    </ContextMenu>
+                </Image.ContextMenu>
+            </Image>
+
+            <!-- 右下角缩放把手 -->
+            <Path x:Name="ResizeGrip"
+                  Data="M 0,12 L 12,0 M 4,12 L 12,4 M 8,12 L 12,8"
+                  Stroke="#88FFFFFF" StrokeThickness="1.5"
+                  Width="14" Height="14"
+                  HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                  Margin="0,0,2,2"
+                  Cursor="SizeNWSE"
+                  MouseLeftButtonDown="ResizeGrip_MouseLeftButtonDown"/>
+        </Grid>
+
+        <!-- 图钉按钮：黄色圆形，悬浮在内容区右上角外侧 -->
+        <Border x:Name="PinButton"
+                Width="32" Height="32"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Background="#FFD700"
+                BorderThickness="0"
+                CornerRadius="16"
+                Cursor="Hand"
+                ToolTip="关闭"
+                MouseLeftButtonDown="CloseFloatingWindow_Click">
+            <TextBlock Text="📌" FontSize="18"
+                       FontFamily="Segoe UI Emoji"
+                       Foreground="#333333"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       IsHitTestVisible="False"
+                       Margin="0,0,0,1"/>
+        </Border>
+    </Grid>
+</Window>

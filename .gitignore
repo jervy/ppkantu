@@ -1,0 +1,41 @@
+# Build outputs
+artifacts/
+bin/
+obj/
+**/bin/
+**/obj/
+**/artifacts/
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vcxproj.user
+*.csproj.user
+
+# Logs and temp
+*.log
+*.tmp
+*.cache
+*.pdb
+*_wpftmp/
+*.vspscc
+*.vssscc
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local package caches
+packages/
+.nuget/
+
+# Generated / transient app data
+LiteImageViewer/_floating_staging/
+LiteImageViewer/test.txt
+LiteImageViewer裁切交互排坑总结.txt
+/demo/
