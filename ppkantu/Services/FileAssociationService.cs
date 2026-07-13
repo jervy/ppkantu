@@ -223,7 +223,18 @@ public static class FileAssociationService
         using var cmdKey = hkcu.OpenSubKey($@"Software\Classes\{ProgId}\shell\open\command");
         var registeredCommand = cmdKey?.GetValue(null) as string;
         var currentCommand = BuildOpenCommand(ExePath);
-        return string.Equals(registeredCommand, currentCommand, StringComparison.OrdinalIgnoreCase);
+        if (!string.Equals(registeredCommand, currentCommand, StringComparison.OrdinalIgnoreCase))
+            return false;
+
+        using var appKey = hkcu.OpenSubKey(ApplicationsKey);
+        if (appKey == null)
+            return false;
+
+        var marker = appKey.GetValue(ApplicationMarker) as string;
+
+        using var appCommandKey = appKey.OpenSubKey(@"shell\open\command");
+        var appCommand = appCommandKey?.GetValue(null) as string;
+        return string.Equals(appCommand, currentCommand, StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool IsExtensionAssociated(RegistryKey hkcu, string ext)

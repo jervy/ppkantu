@@ -77,6 +77,9 @@ reg add "%CAPABILITIESKEY%" /v ApplicationName /t REG_SZ /d "鹏鹏看图" /f >n
 reg add "%CAPABILITIESKEY%" /v ApplicationDescription /t REG_SZ /d "轻量、干净、无广告的办公图片查看与处理工具" /f >nul 2>&1
 reg add "%CAPABILITIESKEY%" /v ApplicationIcon /t REG_SZ /d "\"%EXE_PATH%\",0" /f >nul 2>&1
 reg add "%REGISTERED_APPS%" /v ppkantu /t REG_SZ /d "Software\ppkantu\Capabilities" /f >nul 2>&1
+for %%E in (.jpg .jpeg .jpe .jfif .png .bmp .dib .gif .webp .tiff .tif .ico .wdp .jxr .hdp) do (
+    reg add "%CAPABILITIESKEY%\FileAssociations" /v %%E /t REG_SZ /d "%PROGID%" /f >nul 2>&1
+)
 
 echo   OK - Fixed application identity registered.
 echo.
