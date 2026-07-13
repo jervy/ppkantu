@@ -12,8 +12,8 @@
     <OutputPath>$(BaseOutputPath)$(MSBuildProjectName)\$(Configuration)\</OutputPath>
 
     <!-- 发布包统一进入 artifacts/publish，避免和源码目录、旧 release 目录混在一起。 -->
-    <PublishDir>$(ArtifactsRoot)publish\$(MSBuildProjectName)\$(Configuration)\$(RuntimeIdentifier)\</PublishDir>
-    <PublishDir Condition="'$(PublishSingleFile)' == 'true'">$(ArtifactsRoot)publish\$(MSBuildProjectName)\$(Configuration)\$(RuntimeIdentifier)-single\</PublishDir>
+    <PublishDir>$(ArtifactsRoot)publish\$(RuntimeIdentifier)\</PublishDir>
+    <PublishDir Condition="'$(PublishSingleFile)' == 'true'">$(ArtifactsRoot)publish\$(RuntimeIdentifier)-single\</PublishDir>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">

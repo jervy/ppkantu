@@ -35,8 +35,8 @@ dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained fal
 
 发布输出位于：
 
-- 普通目录版：`artifacts/publish/ppkantu/Release/win-x64/`
-- 单文件版：`artifacts/publish/ppkantu/Release/win-x64-single/`
+- 普通目录版：`artifacts/publish/win-x64/`
+- 单文件版：`artifacts/publish/win-x64-single/`
 
 - 发布资产：
   - `ppkantu-win-x64.zip`

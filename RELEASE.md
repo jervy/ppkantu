@@ -15,7 +15,7 @@
 路径：
 
 ```text
-artifacts/publish/ppkantu/Release/win-x64/
+artifacts/publish/win-x64/
 ```
 
 适合完整目录分发。目录内会包含主程序及其所需依赖文件。
@@ -25,7 +25,7 @@ artifacts/publish/ppkantu/Release/win-x64/
 路径：
 
 ```text
-artifacts/publish/ppkantu/Release/win-x64-single/
+artifacts/publish/win-x64-single/
 ```
 
 适合更便于拷贝和分发的场景。单文件版仍然是框架依赖发布，不是自包含版。
