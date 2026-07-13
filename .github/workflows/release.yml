@@ -33,10 +33,6 @@ jobs:
       - name: Publish single-file
         run: dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -v minimal -o "$env:GITHUB_WORKSPACE/dist/win-x64-single"
 
-      - name: Prepare single-file asset
-        shell: pwsh
-        run: Copy-Item "$env:GITHUB_WORKSPACE/dist/win-x64-single/鹏鹏看图.exe" "$env:GITHUB_WORKSPACE/dist/win-x64-single/ppkantu.exe"
-
       - name: Package normal directory
         shell: pwsh
         run: |

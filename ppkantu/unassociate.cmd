@@ -8,6 +8,8 @@ echo ========================================
 echo.
 
 set "PROGID=ppkantu.ImageFile"
+set "APPKEY=HKCU\Software\Classes\Applications\ppkantu.exe"
+set "LEGACY_APPKEY=HKCU\Software\Classes\Applications\鹏鹏看图.exe"
 
 :: ============================================
 :: 1. Remove extension associations
@@ -51,6 +53,10 @@ if errorlevel 1 (
 ) else (
     echo   OK - ProgId removed.
 )
+
+:: Remove the fixed and legacy application identity keys.
+reg delete "%APPKEY%" /f >nul 2>&1
+reg delete "%LEGACY_APPKEY%" /f >nul 2>&1
 
 echo.
 echo ========================================

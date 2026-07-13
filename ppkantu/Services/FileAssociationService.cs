@@ -14,12 +14,46 @@ public static class FileAssociationService
 {
     private const string ProgId = "ppkantu.ImageFile";
     private const string AppName = "ppkantu";
+    private const string ExecutableIdentity = "ppkantu.exe";
+    private const string ApplicationsKey =
+        @"Software\Classes\Applications\ppkantu.exe";
+    private const string LegacyApplicationsKey =
+        @"Software\Classes\Applications\鹏鹏看图.exe";
     private const string RegisteredAppKey = $@"Software\RegisteredApplications";
     private const string AppCapabilitiesKey = $@"Software\{AppName}\Capabilities";
 
     private static readonly string[] ImageExtensions = Config.AppSettings.SupportedExtensions;
 
-    private static string ExePath => Path.Combine(AppContext.BaseDirectory, "鹏鹏看图.exe");
+    private static string ExePath => Environment.ProcessPath
+        ?? Path.Combine(AppContext.BaseDirectory, ExecutableIdentity);
+
+    /// <summary>
+    /// 检查固定应用注册项是否存在。用于识别“用户改名后仍有旧关联”的情况。
+    /// </summary>
+    public static bool HasApplicationRegistration()
+    {
+        try
+        {
+            using var hkcu = Registry.CurrentUser;
+            using var appKey = hkcu.OpenSubKey(ApplicationsKey);
+            return appKey != null;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// 如果固定注册项存在但路径已经变化，先清除本程序旧关联，再用当前路径重新注册。
+    /// </summary>
+    public static bool RepairAssociationIfNeeded()
+    {
+        if (!HasApplicationRegistration() || IsRegisteredForCurrentExecutable())
+            return false;
+
+        return Unassociate() && Associate();
+    }
 
     /// <summary>
     /// 是否已关联所有支持的图片扩展名。
@@ -140,7 +174,8 @@ public static class FileAssociationService
 
             hkcu.DeleteSubKeyTree($@"Software\Classes\{ProgId}", throwOnMissingSubKey: false);
             hkcu.DeleteSubKeyTree($@"Software\{AppName}", throwOnMissingSubKey: false);
-            hkcu.DeleteSubKeyTree(@"Software\Classes\Applications\鹏鹏看图.exe", throwOnMissingSubKey: false);
+            hkcu.DeleteSubKeyTree(ApplicationsKey, throwOnMissingSubKey: false);
+            hkcu.DeleteSubKeyTree(LegacyApplicationsKey, throwOnMissingSubKey: false);
 
             using (var registeredApps = hkcu.OpenSubKey(RegisteredAppKey, writable: true))
                 registeredApps?.DeleteValue(AppName, throwOnMissingValue: false);
@@ -212,8 +247,8 @@ public static class FileAssociationService
         using var registeredApps = hkcu.CreateSubKey(RegisteredAppKey);
         registeredApps.SetValue(AppName, AppCapabilitiesKey);
 
-        // 注册到 Classes\Applications，使应用出现在"选择其他应用"列表中
-        using var appKey = hkcu.CreateSubKey($@"Software\Classes\Applications\鹏鹏看图.exe");
+        hkcu.DeleteSubKeyTree(LegacyApplicationsKey, throwOnMissingSubKey: false);
+        using var appKey = hkcu.CreateSubKey(ApplicationsKey);
         using var shellKey = appKey.CreateSubKey(@"shell\open\command");
         shellKey.SetValue(null, BuildOpenCommand(ExePath));
         using var iconKey = appKey.CreateSubKey("DefaultIcon");

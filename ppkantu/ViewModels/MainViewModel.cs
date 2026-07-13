@@ -1619,6 +1619,8 @@ public class MainViewModel : INotifyPropertyChanged
         {
             await Task.Run(() =>
             {
+                // 用户改名后，固定注册项仍保留，但命令路径会失效；先清理再按当前路径重建。
+                FileAssociationService.RepairAssociationIfNeeded();
                 var isAssociated = FileAssociationService.IsRegisteredForCurrentExecutable();
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {

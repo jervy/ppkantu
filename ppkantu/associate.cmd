@@ -11,17 +11,17 @@ echo.
 set "SCRIPT_DIR=%~dp0"
 
 :: Resolve to the exe path.
-:: Default usage: copy/run this script next to 鹏鹏看图.exe in the published package.
-set "EXE_PATH=%SCRIPT_DIR%鹏鹏看图.exe"
+:: Default usage: copy/run this script next to ppkantu.exe in the published package.
+set "EXE_PATH=%SCRIPT_DIR%ppkantu.exe"
 
 :: Developer fallback: allow running from the project folder after `dotnet build`.
 if not exist "%EXE_PATH%" (
-    set "EXE_PATH=%SCRIPT_DIR%..\artifacts\bin\ppkantu\Debug\net8.0-windows10.0.19041.0\鹏鹏看图.exe"
+    set "EXE_PATH=%SCRIPT_DIR%..\artifacts\bin\ppkantu\Debug\net8.0-windows10.0.19041.0\ppkantu.exe"
 )
 
 :: Verify the exe exists
 if not exist "%EXE_PATH%" (
-    echo [ERROR] 鹏鹏看图.exe not found at:
+    echo [ERROR] ppkantu.exe not found at:
     echo   %EXE_PATH%
     echo.
     echo Please build the project first or adjust EXE_PATH in this script.
@@ -33,6 +33,8 @@ echo   %EXE_PATH%
 echo.
 
 set "PROGID=ppkantu.ImageFile"
+set "APPKEY=HKCU\Software\Classes\Applications\ppkantu.exe"
+set "LEGACY_APPKEY=HKCU\Software\Classes\Applications\鹏鹏看图.exe"
 
 :: ============================================
 :: 1. Register the ProgId
@@ -56,7 +58,16 @@ if errorlevel 1 (
     echo   [WARNING] Failed to set default icon (non-fatal).
 )
 
-echo   OK - ProgId registered.
+:: Remove any legacy application identity before registering the fixed identity.
+reg delete "%LEGACY_APPKEY%" /f >nul 2>&1
+reg add "%APPKEY%\shell\open\command" /ve /d "\"%EXE_PATH%\" \"%%1\"" /f >nul 2>&1
+reg add "%APPKEY%\DefaultIcon" /ve /d "\"%EXE_PATH%\",0" /f >nul 2>&1
+if errorlevel 1 (
+    echo   [ERROR] Failed to register fixed application identity.
+    exit /b 1
+)
+
+echo   OK - Fixed application identity registered.
 echo.
 
 :: ============================================

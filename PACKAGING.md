@@ -50,7 +50,7 @@ D:\work\kantu\artifacts\publish\ppkantu\Release\win-x64\
 该目录中应包含：
 
 ```text
-鹏鹏看图.exe
+ppkantu.exe
 鹏鹏看图.dll
 ppkantu.deps.json
 ppkantu.runtimeconfig.json
@@ -80,13 +80,13 @@ D:\work\kantu\artifacts\publish\ppkantu\Release\win-x64-single\
 单文件版主程序必须是：
 
 ```text
-artifacts/publish/ppkantu/Release/win-x64-single/鹏鹏看图.exe
+artifacts/publish/ppkantu/Release/win-x64-single/ppkantu.exe
 ```
 
 Windows 路径为：
 
 ```text
-D:\work\kantu\artifacts\publish\ppkantu\Release\win-x64-single\鹏鹏看图.exe
+D:\work\kantu\artifacts\publish\ppkantu\Release\win-x64-single\ppkantu.exe
 ```
 
 ## 5. 运行时安装包规则
@@ -108,11 +108,11 @@ windowsdesktop-runtime-8.0.28-win-x64.exe
 也就是说，单文件版目录通常至少包含：
 
 ```text
-鹏鹏看图.exe
+ppkantu.exe
 windowsdesktop-runtime-8.0.28-win-x64.exe
 ```
 
-注意：不要把运行时安装包打进 `鹏鹏看图.exe`。它只是放在同一目录，方便分发。
+注意：不要把运行时安装包打进 `ppkantu.exe`。它只是放在同一目录，方便分发。
 
 ## 6. 禁止事项
 
@@ -221,7 +221,7 @@ dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained fal
 > **说明：单文件版与普通目录版的差异**
 >
 > - **普通目录版**：`win-x64/` 下含 `FloatingImageViewerPublish/` 子目录，"固定到桌面"直接使用该目录下的 exe。
-> - **单文件版**：`win-x64-single/` 下只有 `鹏鹏看图.exe` + 运行时安装包，无需附带 `FloatingImageViewerPublish/` 子目录。浮窗 exe 已嵌入主 exe，首次使用"固定到桌面"时自动解压到 `%TEMP%/FloatingImageViewerPublish/`。
+> - **单文件版**：`win-x64-single/` 下只有 `ppkantu.exe` + 运行时安装包，无需附带 `FloatingImageViewerPublish/` 子目录。浮窗 exe 已嵌入主 exe，首次使用"固定到桌面"时自动解压到 `%TEMP%/FloatingImageViewerPublish/`。
 
 发布前的 `dotnet build` 期望结果应为：
 
@@ -250,14 +250,14 @@ find artifacts/publish/ppkantu/Release/win-x64-single -maxdepth 1 -type f -print
 2. 第二条检查命令至少包含：
 
 ```text
-鹏鹏看图.exe
+ppkantu.exe
 windowsdesktop-runtime-8.0.28-win-x64.exe
 ```
 
 如果没有携带运行时安装包，则至少必须包含：
 
 ```text
-鹏鹏看图.exe
+ppkantu.exe
 ```
 
 ## 10. 启动验证
@@ -265,7 +265,7 @@ windowsdesktop-runtime-8.0.28-win-x64.exe
 发布后可用以下命令做基础启动验证：
 
 ```bash
-timeout 5s /d/work/kantu/artifacts/publish/ppkantu/Release/win-x64-single/鹏鹏看图.exe; printf 'single_exit=%s\n' $?
+timeout 5s /d/work/kantu/artifacts/publish/ppkantu/Release/win-x64-single/ppkantu.exe; printf 'single_exit=%s\n' $?
 ```
 
 如果输出为：
@@ -289,5 +289,5 @@ D:\work\kantu\artifacts\publish\ppkantu\Release\win-x64\
 单文件版：
 
 ```text
-D:\work\kantu\artifacts\publish\ppkantu\Release\win-x64-single\鹏鹏看图.exe
+D:\work\kantu\artifacts\publish\ppkantu\Release\win-x64-single\ppkantu.exe
 ```

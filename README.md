@@ -8,7 +8,7 @@
 
 ## 项目概览
 
-- 主程序：`鹏鹏看图.exe`
+- 主程序：`ppkantu.exe`
 - 辅助浮窗：`FloatingImageViewerApp`（内置组件）
 - 技术栈：WPF / .NET 8
 - 目标平台：`win-x64`

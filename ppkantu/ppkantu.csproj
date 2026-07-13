@@ -11,7 +11,7 @@
       <ImplicitUsings>enable</ImplicitUsings>
       <UseWPF>true</UseWPF>
       <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
-      <AssemblyName>鹏鹏看图</AssemblyName>
+      <AssemblyName>ppkantu</AssemblyName>
       <RootNamespace>ppkantu</RootNamespace>
       <Version>1.0.0</Version>
       <Authors>鹏鹏看图团队</Authors>
