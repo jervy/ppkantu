@@ -2,12 +2,12 @@
 setlocal
 
 echo ========================================
-echo  LiteImageViewer - Remove File Association
+echo  ppkantu - Remove File Association
 echo  (HKCU - No admin required)
 echo ========================================
 echo.
 
-set "PROGID=LiteImageViewer.ImageFile"
+set "PROGID=ppkantu.ImageFile"
 
 :: ============================================
 :: 1. Remove extension associations
@@ -31,7 +31,7 @@ for %%E in (%EXTENSIONS%) do (
             set /a COUNT+=1
         )
     ) else (
-        echo   %%E - Skipped (not associated with LiteImageViewer)
+        echo   %%E - Skipped (not associated with ppkantu)
     )
 )
 

@@ -8,8 +8,8 @@ Use this as a checklist when cutting a new public release.
 
 ## Included artifacts
 
-- `kantu-win-x64.zip`
-- `kantu-win-x64-single.zip`
+- `ppkantu-win-x64.zip`
+- `ppkantu-win-x64-single.zip`
 
 ## Summary
 

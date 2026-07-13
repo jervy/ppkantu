@@ -255,8 +255,8 @@ public class MainViewModel : INotifyPropertyChanged
     public string FileAssocLabel => IsFileAssociated ? "取消关联" : "关联";
     public string FileAssocIcon => IsFileAssociated ? "🔗" : "📎";
     public string FileAssocToolTip => IsFileAssociated
-        ? "取消 LiteImageViewer 图片打开方式关联"
-        : "关联 LiteImageViewer 图片打开方式";
+        ? "取消 ppkantu 图片打开方式关联"
+        : "关联 ppkantu 图片打开方式";
 
     // 主题
     private bool _isDarkMode;

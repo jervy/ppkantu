@@ -11,17 +11,17 @@ echo.
 set "SCRIPT_DIR=%~dp0"
 
 :: Resolve to the exe path.
-:: Default usage: copy/run this script next to LiteImageViewer.exe in the published package.
-set "EXE_PATH=%SCRIPT_DIR%LiteImageViewer.exe"
+:: Default usage: copy/run this script next to ppkantu.exe in the published package.
+set "EXE_PATH=%SCRIPT_DIR%ppkantu.exe"
 
 :: Developer fallback: allow running from the project folder after `dotnet build`.
 if not exist "%EXE_PATH%" (
-    set "EXE_PATH=%SCRIPT_DIR%..\artifacts\bin\LiteImageViewer\Debug\net8.0-windows10.0.19041.0\LiteImageViewer.exe"
+    set "EXE_PATH=%SCRIPT_DIR%..\artifacts\bin\LiteImageViewer\Debug\net8.0-windows10.0.19041.0\ppkantu.exe"
 )
 
 :: Verify the exe exists
 if not exist "%EXE_PATH%" (
-    echo [ERROR] LiteImageViewer.exe not found at:
+    echo [ERROR] ppkantu.exe not found at:
     echo   %EXE_PATH%
     echo.
     echo Please build the project first or adjust EXE_PATH in this script.
@@ -32,14 +32,14 @@ echo Using executable:
 echo   %EXE_PATH%
 echo.
 
-set "PROGID=LiteImageViewer.ImageFile"
+set "PROGID=ppkantu.ImageFile"
 
 :: ============================================
 :: 1. Register the ProgId
 :: ============================================
 echo [1/3] Registering ProgId: %PROGID%
 
-reg add "HKCU\Software\Classes\%PROGID%" /ve /d "LiteImageViewer Image File" /f >nul 2>&1
+reg add "HKCU\Software\Classes\%PROGID%" /ve /d "鹏鹏看图 图片文件" /f >nul 2>&1
 if errorlevel 1 (
     echo   [ERROR] Failed to create ProgId key.
     exit /b 1

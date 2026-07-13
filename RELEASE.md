@@ -1,10 +1,10 @@
-# Release Notes / 发布说明
+# ppkantu Release / 鹏鹏看图发布
 
-本文档用于说明 `kantu` / `LiteImageViewer` 仓库的公开发布口径，便于后续维护者保持一致。
+本文档用于说明 `ppkantu` / 鹏鹏看图仓库的公开发布口径，便于后续维护者保持一致。
 
 ## 发布目标
 
-- 仓库名：`kantu`
+- 仓库名：`ppkantu`
 - 对外项目名：`鹏鹏看图 / LiteImageViewer`
 - 公开仓库许可证：`Apache-2.0`
 

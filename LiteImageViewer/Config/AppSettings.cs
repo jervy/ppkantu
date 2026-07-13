@@ -9,7 +9,7 @@ namespace LiteImageViewer.Config;
 public class AppSettings
 {
     private const string ConfigFileName = "appsettings.json";
-    private const string AppName = "LiteImageViewer";
+    private const string AppName = "ppkantu";
 
     /// <summary>
     /// 主题：Light / Dark

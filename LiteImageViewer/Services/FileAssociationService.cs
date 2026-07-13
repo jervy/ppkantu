@@ -12,14 +12,14 @@ namespace LiteImageViewer.Services;
 /// </summary>
 public static class FileAssociationService
 {
-    private const string ProgId = "LiteImageViewer.ImageFile";
-    private const string AppName = "LiteImageViewer";
+    private const string ProgId = "ppkantu.ImageFile";
+    private const string AppName = "ppkantu";
     private const string RegisteredAppKey = $@"Software\RegisteredApplications";
     private const string AppCapabilitiesKey = $@"Software\{AppName}\Capabilities";
 
     private static readonly string[] ImageExtensions = Config.AppSettings.SupportedExtensions;
 
-    private static string ExePath => Path.Combine(AppContext.BaseDirectory, "LiteImageViewer.exe");
+    private static string ExePath => Path.Combine(AppContext.BaseDirectory, "ppkantu.exe");
 
     /// <summary>
     /// 是否已关联所有支持的图片扩展名。
@@ -140,7 +140,7 @@ public static class FileAssociationService
 
             hkcu.DeleteSubKeyTree($@"Software\Classes\{ProgId}", throwOnMissingSubKey: false);
             hkcu.DeleteSubKeyTree($@"Software\{AppName}", throwOnMissingSubKey: false);
-            hkcu.DeleteSubKeyTree(@"Software\Classes\Applications\LiteImageViewer.exe", throwOnMissingSubKey: false);
+            hkcu.DeleteSubKeyTree(@"Software\Classes\Applications\ppkantu.exe", throwOnMissingSubKey: false);
 
             using (var registeredApps = hkcu.OpenSubKey(RegisteredAppKey, writable: true))
                 registeredApps?.DeleteValue(AppName, throwOnMissingValue: false);
@@ -158,8 +158,8 @@ public static class FileAssociationService
     private static void RegisterProgId(RegistryKey hkcu)
     {
         using var progKey = hkcu.CreateSubKey($@"Software\Classes\{ProgId}");
-        progKey.SetValue(null, "LiteImageViewer 图片文件");
-        progKey.SetValue("FriendlyTypeName", "LiteImageViewer 图片文件");
+        progKey.SetValue(null, "鹏鹏看图 图片文件");
+        progKey.SetValue("FriendlyTypeName", "鹏鹏看图 图片文件");
 
         using var iconKey = progKey.CreateSubKey("DefaultIcon");
         iconKey.SetValue(null, $"\"{ExePath}\",0");
@@ -213,7 +213,7 @@ public static class FileAssociationService
         registeredApps.SetValue(AppName, AppCapabilitiesKey);
 
         // 注册到 Classes\Applications，使应用出现在"选择其他应用"列表中
-        using var appKey = hkcu.CreateSubKey($@"Software\Classes\Applications\LiteImageViewer.exe");
+        using var appKey = hkcu.CreateSubKey($@"Software\Classes\Applications\ppkantu.exe");
         using var shellKey = appKey.CreateSubKey(@"shell\open\command");
         shellKey.SetValue(null, BuildOpenCommand(ExePath));
         using var iconKey = appKey.CreateSubKey("DefaultIcon");
