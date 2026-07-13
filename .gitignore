@@ -35,7 +35,7 @@ packages/
 .nuget/
 
 # Generated / transient app data
-LiteImageViewer/_floating_staging/
-LiteImageViewer/test.txt
-LiteImageViewer裁切交互排坑总结.txt
+ppkantu/_floating_staging/
+ppkantu/test.txt
+ppkantu裁切交互排坑总结.txt
 /demo/

@@ -6,11 +6,9 @@
 
 轻量、干净、无广告的 Windows 图片查看与处理工具。
 
-> **品牌名：** 鹏鹏看图　**产品标识：** `ppkantu`
-
 ## 项目概览
 
-- 主程序：`ppkantu.exe`
+- 主程序：`鹏鹏看图.exe`
 - 辅助浮窗：`FloatingImageViewerApp`（内置组件）
 - 技术栈：WPF / .NET 8
 - 目标平台：`win-x64`
@@ -30,15 +28,15 @@
 请优先阅读 [`PACKAGING.md`](PACKAGING.md)。常用命令：
 
 ```bash
-dotnet build LiteImageViewer.sln -c Release
-dotnet publish LiteImageViewer/LiteImageViewer.csproj -c Release -r win-x64 --self-contained false
-dotnet publish LiteImageViewer/LiteImageViewer.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true
+dotnet build ppkantu.sln -c Release
+dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained false
+dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true
 ```
 
 发布输出位于：
 
-- 普通目录版：`artifacts/publish/LiteImageViewer/Release/win-x64/`
-- 单文件版：`artifacts/publish/LiteImageViewer/Release/win-x64-single/`
+- 普通目录版：`artifacts/publish/ppkantu/Release/win-x64/`
+- 单文件版：`artifacts/publish/ppkantu/Release/win-x64-single/`
 
 GitHub Release 资产命名为：
 
@@ -64,10 +62,10 @@ GitHub Release 资产命名为：
 ## 目录结构
 
 ```text
-LiteImageViewer.sln
+ppkantu.sln
 Directory.Build.props
 Directory.Build.targets
-LiteImageViewer/
+ppkantu/
 FloatingImageViewerApp/
 assets/
 .github/workflows/

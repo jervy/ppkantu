@@ -5,7 +5,7 @@
 ## 发布目标
 
 - 仓库名：`ppkantu`
-- 对外项目名：`鹏鹏看图 / LiteImageViewer`
+- 对外项目名：`鹏鹏看图 / ppkantu`
 - 公开仓库许可证：`Apache-2.0`
 
 ## 发布产物
@@ -15,7 +15,7 @@
 路径：
 
 ```text
-artifacts/publish/LiteImageViewer/Release/win-x64/
+artifacts/publish/ppkantu/Release/win-x64/
 ```
 
 适合完整目录分发。目录内会包含主程序及其所需依赖文件。
@@ -25,7 +25,7 @@ artifacts/publish/LiteImageViewer/Release/win-x64/
 路径：
 
 ```text
-artifacts/publish/LiteImageViewer/Release/win-x64-single/
+artifacts/publish/ppkantu/Release/win-x64-single/
 ```
 
 适合更便于拷贝和分发的场景。单文件版仍然是框架依赖发布，不是自包含版。
@@ -34,7 +34,7 @@ artifacts/publish/LiteImageViewer/Release/win-x64-single/
 
 发布前至少确认：
 
-- `dotnet build LiteImageViewer.sln -c Release` 无错误
+- `dotnet build ppkantu.sln -c Release` 无错误
 - `README.md`、`LICENSE`、`THIRD_PARTY_NOTICES.md` 已存在
 - 不把以下内容提交到 GitHub：
   - `bin/`

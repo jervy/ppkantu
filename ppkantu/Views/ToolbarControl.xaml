@@ -1,0 +1,245 @@
+<UserControl x:Class="Ppkantu.Views.ToolbarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="42" d:DesignWidth="900"
+             Background="{DynamicResource ToolbarBgBrush}">
+
+    <Border BorderBrush="{DynamicResource ToolbarBorderBrush}" BorderThickness="0,0,0,1">
+        <DockPanel LastChildFill="False" Margin="2,0">
+
+            <!-- 打开 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="打开图片 (Ctrl+O)"
+                    Command="{Binding OpenFileCommand}"
+                    Padding="8,5" Margin="2,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="📂" FontSize="14" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+            <Separator DockPanel.Dock="Left" Style="{StaticResource ToolbarSeparatorStyle}" />
+
+            <!-- 撤销 / 重做 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="撤销 (Ctrl+Z)"
+                    Command="{Binding UndoCommand}"
+                    Padding="6,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <TextBlock Text="↶" FontSize="16" />
+            </Button>
+            <Button DockPanel.Dock="Left"
+                    ToolTip="重做 (Ctrl+Y)"
+                    Command="{Binding RedoCommand}"
+                    Padding="6,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <TextBlock Text="↷" FontSize="16" />
+            </Button>
+
+            <Separator DockPanel.Dock="Left" Style="{StaticResource ToolbarSeparatorStyle}" />
+
+            <!-- 放大 / 缩小 / 适应 / 原始 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="放大 (Ctrl+滚轮上)"
+                    Command="{Binding ZoomInCommand}"
+                    Padding="6,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <TextBlock Text="🔍+" FontSize="14" />
+            </Button>
+            <Button DockPanel.Dock="Left"
+                    ToolTip="缩小 (Ctrl+滚轮下)"
+                    Command="{Binding ZoomOutCommand}"
+                    Padding="6,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <TextBlock Text="🔍-" FontSize="14" />
+            </Button>
+            <Button DockPanel.Dock="Left"
+                    ToolTip="适应窗口 (Ctrl+0)"
+                    Command="{Binding FitToWindowCommand}"
+                    Padding="8,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="⊞" FontSize="13" VerticalAlignment="Center" Margin="0,0,3,0" />
+                    <TextBlock Text="适应" FontSize="12" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <Button DockPanel.Dock="Left"
+                    ToolTip="原始大小 (Ctrl+1)"
+                    Command="{Binding OriginalSizeCommand}"
+                    Padding="8,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="▣" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,3,0" />
+                    <TextBlock Text="原始" FontSize="12" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+            <Separator DockPanel.Dock="Left" Style="{StaticResource ToolbarSeparatorStyle}" />
+            <Border DockPanel.Dock="Left" Width="3" Height="22" Background="{DynamicResource SeparatorBrush}" Margin="4,0" />
+
+            <!-- 旋转/翻转 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="左旋转 90°"
+                    Command="{Binding RotateLeftCommand}"
+                    Padding="6,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <TextBlock Text="↺" FontSize="16" />
+            </Button>
+            <Button DockPanel.Dock="Left"
+                    ToolTip="右旋转 90°"
+                    Command="{Binding RotateRightCommand}"
+                    Padding="6,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <TextBlock Text="↻" FontSize="16" />
+            </Button>
+            <Button DockPanel.Dock="Left"
+                    ToolTip="水平翻转"
+                    Command="{Binding FlipHorizontalCommand}"
+                    Padding="6,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <TextBlock Text="⇔" FontSize="16" />
+            </Button>
+            <Button DockPanel.Dock="Left"
+                    ToolTip="垂直翻转"
+                    Command="{Binding FlipVerticalCommand}"
+                    Padding="6,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <TextBlock Text="⇕" FontSize="16" />
+            </Button>
+
+            <Separator DockPanel.Dock="Left" Style="{StaticResource ToolbarSeparatorStyle}" />
+
+            <!-- 裁切 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="裁切图片 — Enter 确认, Esc 取消"
+                    Click="OnStartCropClick"
+                    Padding="8,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="✂" FontSize="14" VerticalAlignment="Center" Margin="0,0,3,0" />
+                    <TextBlock Text="裁切" FontSize="12" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+            <!-- 标注 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="标注工具 — 拖拽绘制；点击已有标注选中，Delete 删除；保存/另存时写入文件"
+                    Command="{Binding StartAnnotationCommand}"
+                    Padding="8,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="✏" FontSize="14" VerticalAlignment="Center" Margin="0,0,3,0" />
+                    <TextBlock Text="标注" FontSize="12" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+            <!-- 涂抹 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="涂抹工具 — Enter 确认烘焙，Esc 取消"
+                    Click="OnStartDoodleClick"
+                    Padding="8,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="🧱" FontSize="14" VerticalAlignment="Center" Margin="0,0,3,0" />
+                    <TextBlock Text="涂抹" FontSize="12" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+            <!-- 压缩 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="按当前质量压缩图片（保留原格式）"
+                    Command="{Binding CompressCommand}"
+                    Padding="8,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="📦" FontSize="14" VerticalAlignment="Center" Margin="0,0,3,0" />
+                    <TextBlock Text="压缩" FontSize="12" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <TextBox DockPanel.Dock="Left"
+                     Width="34"
+                     ToolTip="压缩质量：1-100，数值越低体积越小，画质越低"
+                     Text="{Binding CompressionQuality, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                     Background="{DynamicResource PanelButtonBgBrush}"
+                     Foreground="{DynamicResource TitleTextBrush}"
+                     BorderBrush="{DynamicResource PanelButtonBorderBrush}"
+                     Padding="3,1" Margin="1,3,1,3" FontSize="12"
+                     VerticalContentAlignment="Center"
+                     TextAlignment="Center" />
+
+            <!-- OCR -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="OCR 文字识别"
+                    Command="{Binding ToggleOcrPanelCommand}"
+                    Padding="8,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="🔍" FontSize="14" VerticalAlignment="Center" Margin="0,0,3,0" />
+                    <TextBlock Text="OCR" FontSize="12" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+            <Separator DockPanel.Dock="Left" Style="{StaticResource ToolbarSeparatorStyle}" />
+            <Border DockPanel.Dock="Left" Width="3" Height="22" Background="{DynamicResource SeparatorBrush}" Margin="4,0" />
+
+            <!-- 保存 / 复制 / 删除 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="复制图片到剪贴板 (Ctrl+C)"
+                    Command="{Binding CopyImageCommand}"
+                    Padding="6,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="📋" FontSize="14" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <Button DockPanel.Dock="Left"
+                    ToolTip="另存 (Ctrl+S)"
+                    Command="{Binding SaveAsCommand}"
+                    Padding="8,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="💾" FontSize="14" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <Button DockPanel.Dock="Left"
+                    ToolTip="删除当前图片"
+                    Command="{Binding DeleteImageCommand}"
+                    Padding="6,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="🗑" FontSize="14" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+            <Separator DockPanel.Dock="Left" Style="{StaticResource ToolbarSeparatorStyle}" />
+
+            <!-- 文件关联 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="{Binding FileAssocToolTip}"
+                    Command="{Binding ToggleFileAssociationCommand}"
+                    Padding="8,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding FileAssocIcon}" FontSize="14" VerticalAlignment="Center" Margin="0,0,3,0" />
+                    <TextBlock Text="{Binding FileAssocLabel}" FontSize="12" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+            <!-- 主题切换 -->
+            <Button DockPanel.Dock="Left"
+                    ToolTip="{Binding ThemeToolTip}"
+                    Command="{Binding ToggleThemeCommand}"
+                    Padding="8,5" Margin="1,3"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding ThemeIcon}" FontSize="14" VerticalAlignment="Center" Margin="0,0,3,0" />
+                    <TextBlock Text="{Binding ThemeLabel}" FontSize="12" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+        </DockPanel>
+    </Border>
+</UserControl>

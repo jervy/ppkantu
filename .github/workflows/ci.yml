@@ -22,7 +22,7 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore
-        run: dotnet restore LiteImageViewer.sln
+        run: dotnet restore ppkantu.sln
 
       - name: Build
-        run: dotnet build LiteImageViewer.sln -c Release --no-restore
+        run: dotnet build ppkantu.sln -c Release --no-restore
