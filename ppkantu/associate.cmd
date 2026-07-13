@@ -33,7 +33,9 @@ echo   %EXE_PATH%
 echo.
 
 set "PROGID=ppkantu.ImageFile"
+set "LEGACY_PROGID=LiteImageViewer.ImageFile"
 set "APPKEY=HKCU\Software\Classes\Applications\ppkantu.exe"
+set "ORIGINAL_APPKEY=HKCU\Software\Classes\Applications\LiteImageViewer.exe"
 set "APP_MARKER=ppkantu.Managed"
 set "APPDATAKEY=HKCU\Software\ppkantu"
 set "CAPABILITIESKEY=HKCU\Software\ppkantu\Capabilities"
@@ -62,8 +64,12 @@ if errorlevel 1 (
     echo   [WARNING] Failed to set default icon (non-fatal).
 )
 
-:: Remove any legacy application identity before registering the fixed identity.
+:: Remove known legacy application identities and ProgId before registering the current identity.
+reg delete "HKCU\Software\Classes\%LEGACY_PROGID%" /f >nul 2>&1
 reg delete "%LEGACY_APPKEY%" /f >nul 2>&1
+reg delete "%ORIGINAL_APPKEY%" /f >nul 2>&1
+reg delete "HKCU\Software\LiteImageViewer" /f >nul 2>&1
+reg delete "HKCU\Software\RegisteredApplications" /v LiteImageViewer /f >nul 2>&1
 reg add "%APPKEY%" /v "%APP_MARKER%" /t REG_SZ /d "1" /f >nul 2>&1
 reg add "%APPKEY%\shell\open\command" /ve /d "\"%EXE_PATH%\" \"%%1\"" /f >nul 2>&1
 reg add "%APPKEY%\DefaultIcon" /ve /d "\"%EXE_PATH%\",0" /f >nul 2>&1

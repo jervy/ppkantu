@@ -13,12 +13,16 @@ namespace Ppkantu.Services;
 public static class FileAssociationService
 {
     private const string ProgId = "ppkantu.ImageFile";
+    private const string LegacyProgId = "LiteImageViewer.ImageFile";
     private const string AppName = "ppkantu";
+    private const string LegacyAppName = "LiteImageViewer";
     private const string ExecutableIdentity = "ppkantu.exe";
     private const string ApplicationsKey =
         @"Software\Classes\Applications\ppkantu.exe";
     private const string LegacyApplicationsKey =
         @"Software\Classes\Applications\鹏鹏看图.exe";
+    private const string OriginalApplicationsKey =
+        @"Software\Classes\Applications\LiteImageViewer.exe";
     private const string ApplicationMarker = "ppkantu.Managed";
     private const string ApplicationMarkerValue = "1";
     private const string RegisteredAppKey = $@"Software\RegisteredApplications";
@@ -171,11 +175,16 @@ public static class FileAssociationService
                 {
                     if (extKey != null)
                     {
-                        if (string.Equals(extKey.GetValue(string.Empty) as string, ProgId, StringComparison.OrdinalIgnoreCase))
+                        var currentProgId = extKey.GetValue(string.Empty) as string;
+                        if (string.Equals(currentProgId, ProgId, StringComparison.OrdinalIgnoreCase) ||
+                            string.Equals(currentProgId, LegacyProgId, StringComparison.OrdinalIgnoreCase))
+                        {
                             extKey.DeleteValue(string.Empty, throwOnMissingValue: false);
+                        }
 
                         using var openWithProgIds = extKey.OpenSubKey("OpenWithProgids", writable: true);
                         openWithProgIds?.DeleteValue(ProgId, throwOnMissingValue: false);
+                        openWithProgIds?.DeleteValue(LegacyProgId, throwOnMissingValue: false);
                     }
                 }
 
@@ -188,12 +197,18 @@ public static class FileAssociationService
             }
 
             hkcu.DeleteSubKeyTree($@"Software\Classes\{ProgId}", throwOnMissingSubKey: false);
+            hkcu.DeleteSubKeyTree($@"Software\Classes\{LegacyProgId}", throwOnMissingSubKey: false);
             hkcu.DeleteSubKeyTree($@"Software\{AppName}", throwOnMissingSubKey: false);
+            hkcu.DeleteSubKeyTree($@"Software\{LegacyAppName}", throwOnMissingSubKey: false);
             hkcu.DeleteSubKeyTree(ApplicationsKey, throwOnMissingSubKey: false);
             hkcu.DeleteSubKeyTree(LegacyApplicationsKey, throwOnMissingSubKey: false);
+            hkcu.DeleteSubKeyTree(OriginalApplicationsKey, throwOnMissingSubKey: false);
 
             using (var registeredApps = hkcu.OpenSubKey(RegisteredAppKey, writable: true))
+            {
                 registeredApps?.DeleteValue(AppName, throwOnMissingValue: false);
+                registeredApps?.DeleteValue(LegacyAppName, throwOnMissingValue: false);
+            }
 
             NotifyShellChange();
             return true;
@@ -274,6 +289,7 @@ public static class FileAssociationService
         registeredApps.SetValue(AppName, AppCapabilitiesKey);
 
         hkcu.DeleteSubKeyTree(LegacyApplicationsKey, throwOnMissingSubKey: false);
+        hkcu.DeleteSubKeyTree(OriginalApplicationsKey, throwOnMissingSubKey: false);
         using var appKey = hkcu.CreateSubKey(ApplicationsKey);
         appKey.SetValue(ApplicationMarker, ApplicationMarkerValue, RegistryValueKind.String);
         using var shellKey = appKey.CreateSubKey(@"shell\open\command");
@@ -287,9 +303,14 @@ public static class FileAssociationService
         foreach (var ext in ImageExtensions)
         {
             using var extKey = hkcu.CreateSubKey($@"Software\Classes\{ext}");
+            var existingProgId = extKey.GetValue(string.Empty) as string;
+            if (string.Equals(existingProgId, LegacyProgId, StringComparison.OrdinalIgnoreCase))
+                extKey.DeleteValue(string.Empty, throwOnMissingValue: false);
+
             extKey.SetValue(null, ProgId);
 
             using var openWithProgIds = extKey.CreateSubKey("OpenWithProgids");
+            openWithProgIds.DeleteValue(LegacyProgId, throwOnMissingValue: false);
             openWithProgIds.SetValue(ProgId, Array.Empty<byte>(), RegistryValueKind.None);
         }
     }

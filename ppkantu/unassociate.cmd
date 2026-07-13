@@ -8,7 +8,9 @@ echo ========================================
 echo.
 
 set "PROGID=ppkantu.ImageFile"
+set "LEGACY_PROGID=LiteImageViewer.ImageFile"
 set "APPKEY=HKCU\Software\Classes\Applications\ppkantu.exe"
+set "ORIGINAL_APPKEY=HKCU\Software\Classes\Applications\LiteImageViewer.exe"
 set "APP_MARKER=ppkantu.Managed"
 set "LEGACY_APPKEY=HKCU\Software\Classes\Applications\鹏鹏看图.exe"
 set "APPDATAKEY=HKCU\Software\ppkantu"
@@ -26,7 +28,7 @@ set FAIL=0
 
 for %%E in (%EXTENSIONS%) do (
     :: Only remove if it points to our ProgId
-    reg query "HKCU\Software\Classes\%%E" /ve 2>nul | findstr /i "%PROGID%" >nul 2>&1
+    reg query "HKCU\Software\Classes\%%E" /ve 2>nul | findstr /i "%PROGID% %LEGACY_PROGID%" >nul 2>&1
     if not errorlevel 1 (
         reg delete "HKCU\Software\Classes\%%E" /f >nul 2>&1
         if errorlevel 1 (
@@ -59,10 +61,14 @@ if errorlevel 1 (
 )
 
 :: Remove the fixed and legacy application identity keys.
+reg delete "HKCU\Software\Classes\%LEGACY_PROGID%" /f >nul 2>&1
 reg delete "%APPKEY%" /f >nul 2>&1
 reg delete "%LEGACY_APPKEY%" /f >nul 2>&1
+reg delete "%ORIGINAL_APPKEY%" /f >nul 2>&1
 reg delete "%APPDATAKEY%" /f >nul 2>&1
+reg delete "HKCU\Software\LiteImageViewer" /f >nul 2>&1
 reg delete "%REGISTERED_APPS%" /v ppkantu /f >nul 2>&1
+reg delete "%REGISTERED_APPS%" /v LiteImageViewer /f >nul 2>&1
 
 echo.
 echo ========================================
