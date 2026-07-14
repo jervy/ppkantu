@@ -22,7 +22,7 @@ set "REGISTERED_APPS=HKCU\Software\RegisteredApplications"
 :: ============================================
 echo [1/2] Removing file extension associations...
 
-set "EXTENSIONS=.jpg .jpeg .png .bmp .gif .webp .tiff .tif"
+set "EXTENSIONS=.jpg .jpeg .jpe .jfif .png .bmp .dib .gif .webp .tiff .tif .ico .wdp .jxr .hdp"
 set COUNT=0
 set FAIL=0
 
