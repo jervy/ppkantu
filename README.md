@@ -44,6 +44,8 @@ dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained fal
 
 两种版本均为框架依赖版，目标机器需要 .NET 8 Windows Desktop Runtime。
 
+如果目标机器未安装运行时，可先从 [.NET 8 官方下载页](https://dotnet.microsoft.com/zh-cn/download/dotnet/8.0) 获取对应的 `windowsdesktop-runtime-8.0.28-win-x64.exe` 安装包（选择 Windows Desktop Runtime / x64）。
+
 ## 配置与 OCR
 
 默认配置文件位于 `%LOCALAPPDATA%\\ppkantu\\appsettings.json`。便携版可将配置放在程序目录或 `Data` 子目录。
