@@ -16,7 +16,7 @@ set "EXE_PATH=%SCRIPT_DIR%ppkantu.exe"
 
 :: Developer fallback: allow running from the project folder after `dotnet build`.
 if not exist "%EXE_PATH%" (
-    set "EXE_PATH=%SCRIPT_DIR%..\artifacts\bin\ppkantu\Debug\net8.0-windows10.0.19041.0\ppkantu.exe"
+    set "EXE_PATH=%SCRIPT_DIR%..\artifacts\bin\ppkantu\Release\net8.0-windows10.0.19041.0\ppkantu.exe"
 )
 
 :: Verify the exe exists
@@ -47,7 +47,7 @@ set "LEGACY_APPKEY=HKCU\Software\Classes\Applications\鹏鹏看图.exe"
 :: ============================================
 echo [1/3] Registering ProgId: %PROGID%
 
-reg add "HKCU\Software\Classes\%PROGID%" /ve /d "鹏鹏看图 图片文件" /f >nul 2>&1
+reg add "HKCU\Software\Classes\%PROGID%" /ve /d "ppkantu Image Files" /f >nul 2>&1
 if errorlevel 1 (
     echo   [ERROR] Failed to create ProgId key.
     exit /b 1
@@ -79,8 +79,8 @@ if errorlevel 1 (
 )
 
 :: Register application capabilities and the fixed identity metadata.
-reg add "%CAPABILITIESKEY%" /v ApplicationName /t REG_SZ /d "鹏鹏看图" /f >nul 2>&1
-reg add "%CAPABILITIESKEY%" /v ApplicationDescription /t REG_SZ /d "轻量、干净、无广告的办公图片查看与处理工具" /f >nul 2>&1
+reg add "%CAPABILITIESKEY%" /v ApplicationName /t REG_SZ /d "ppkantu" /f >nul 2>&1
+reg add "%CAPABILITIESKEY%" /v ApplicationDescription /t REG_SZ /d "Windows image viewer" /f >nul 2>&1
 reg add "%CAPABILITIESKEY%" /v ApplicationIcon /t REG_SZ /d "\"%EXE_PATH%\",0" /f >nul 2>&1
 reg add "%REGISTERED_APPS%" /v ppkantu /t REG_SZ /d "Software\ppkantu\Capabilities" /f >nul 2>&1
 for %%E in (.jpg .jpeg .jpe .jfif .png .bmp .dib .gif .webp .tiff .tif .ico .wdp .jxr .hdp) do (
