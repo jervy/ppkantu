@@ -291,3 +291,19 @@ D:\work\ppkantu\artifacts\publish\win-x64\
 ```text
 D:\work\ppkantu\artifacts\publish\win-x64-single\ppkantu.exe
 ```
+
+## 12. 版本号更新方法
+
+当需要发布新版本时，请按以下顺序更新版本号：
+
+1. 修改主项目 `ppkantu/ppkantu.csproj` 中的 `<Version>`，例如从 `1.0.0` 改为 `1.0.1`。
+2. 如果需要让界面标题同步显示新版本号，一并修改：
+   - `ppkantu/MainWindow.xaml` 中的窗口 `Title`
+   - `ppkantu/ViewModels/MainViewModel.cs` 中默认的 `_title`
+3. 如 README 或发布说明中写死了版本号，也同步改成新版本。
+4. 重新执行构建与发布验证：
+   - `dotnet build ppkantu.sln -c Release --no-restore`
+   - `dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained false --no-restore`
+   - `dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true --no-restore`
+5. 检查 `artifacts/publish/win-x64/` 和 `artifacts/publish/win-x64-single/` 的实际文件是否符合预期。
+6. 提交并推送到 `main`，再按需要创建 GitHub Release。
