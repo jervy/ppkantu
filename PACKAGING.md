@@ -297,7 +297,7 @@ D:\work\ppkantu\artifacts\publish\win-x64-single\ppkantu.exe
 当需要发布新版本时，请按以下顺序更新版本号：
 
 1. 修改主项目 `ppkantu/ppkantu.csproj` 中的 `<Version>`，例如从 `1.0.0` 改为 `1.0.1`。
-2. 如果需要让界面标题同步显示新版本号，一并修改：
+2. 如果你**确实需要**让界面标题同步显示版本号，再一并修改：
    - `ppkantu/MainWindow.xaml` 中的窗口 `Title`
    - `ppkantu/ViewModels/MainViewModel.cs` 中默认的 `_title`
 3. 如 README 或发布说明中写死了版本号，也同步改成新版本。
