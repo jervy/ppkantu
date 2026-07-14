@@ -2,17 +2,11 @@
 
 ![鹏鹏看图](assets/readme-cover.svg)
 
+![鹏鹏看图软件截图](assets/ppkantu-screenshot.png)
+
 [![CI](https://github.com/jervy/ppkantu/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jervy/ppkantu/actions/workflows/ci.yml)
 
 轻量、干净、无广告的 Windows 图片查看与处理工具。
-
-## 项目概览
-
-- 主程序：`ppkantu.exe`
-- 辅助浮窗：`FloatingImageViewerApp`（内置组件）
-- 技术栈：WPF / .NET 8
-- 目标平台：`win-x64`
-- 发布方式：框架依赖发布，另提供单文件版
 
 ## 主要能力
 
@@ -22,6 +16,14 @@
 - 文件关联与右键打开支持
 - 浮窗辅助展示
 - 明暗主题与便携式配置
+
+## 项目概览
+
+- 主程序：`ppkantu.exe`
+- 辅助浮窗：`FloatingImageViewerApp`（内置组件）
+- 技术栈：WPF / .NET 8
+- 目标平台：`win-x64`
+- 发布方式：框架依赖发布，另提供单文件版
 
 ## 构建与发布
 
@@ -52,12 +54,6 @@ dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained fal
 - 设置 `OcrProvider` 为空可启用 Windows OCR
 - API OCR 可通过配置文件或 `OCR_API_KEY`、`OCR_API_ENDPOINT` 环境变量配置
 
-## 许可与合规
-
-- 本仓库代码以 **Apache-2.0** 许可发布，见 [`LICENSE`](LICENSE)
-- 第三方依赖与归属说明见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)
-- 发布规范见 [`RELEASE.md`](RELEASE.md)
-
 ## 目录结构
 
 ```text
@@ -72,6 +68,8 @@ PACKAGING.md
 README.md
 ```
 
-## 项目定位
+## 许可与合规
 
-鹏鹏看图专注于“打开图片、看清图片、处理图片”这条主流程：启动快、界面干净、无广告，不把不相关的功能塞进主界面。
+- 本仓库代码以 **Apache-2.0** 许可发布，见 [`LICENSE`](LICENSE)
+- 第三方依赖与归属说明见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)
+- 发布规范见 [`RELEASE.md`](RELEASE.md)
