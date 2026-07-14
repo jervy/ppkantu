@@ -300,7 +300,8 @@ D:\work\ppkantu\artifacts\publish\win-x64-single\ppkantu.exe
 2. 如果你**确实需要**让界面标题同步显示版本号，再一并修改：
    - `ppkantu/MainWindow.xaml` 中的窗口 `Title`
    - `ppkantu/ViewModels/MainViewModel.cs` 中默认的 `_title`
-3. 如 README 或发布说明中写死了版本号，也同步改成新版本。
+3. 左上角应用名是否显示版本号，单独在 `ppkantu/MainWindow.xaml` 左侧标题文本中调整。
+4. 如 README 或发布说明中写死了版本号，也同步改成新版本。
 4. 重新执行构建与发布验证：
    - `dotnet build ppkantu.sln -c Release --no-restore`
    - `dotnet publish ppkantu/ppkantu.csproj -c Release -r win-x64 --self-contained false --no-restore`
