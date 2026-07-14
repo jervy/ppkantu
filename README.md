@@ -6,8 +6,6 @@
 
 [![CI](https://github.com/jervy/ppkantu/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jervy/ppkantu/actions/workflows/ci.yml)
 
-轻量、干净、无广告的 Windows 图片查看与处理工具。
-
 ## 主要能力
 
 - 图片查看与快速浏览
