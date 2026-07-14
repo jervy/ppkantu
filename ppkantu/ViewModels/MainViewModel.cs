@@ -74,7 +74,7 @@ public class MainViewModel : INotifyPropertyChanged
         set { _currentGifSource = value; OnPropertyChanged(); }
     }
 
-    private string _title = "";
+    private string _title = "鹏鹏看图";
     public string Title
     {
         get => _title;
