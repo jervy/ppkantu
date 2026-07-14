@@ -46,6 +46,7 @@ set "LEGACY_APPKEY=HKCU\Software\Classes\Applications\鹏鹏看图.exe"
 :: 1. Register the ProgId
 :: ============================================
 echo [1/3] Registering ProgId: %PROGID%
+echo.
 
 reg add "HKCU\Software\Classes\%PROGID%" /ve /d "ppkantu Image Files" /f >nul 2>&1
 if errorlevel 1 (
@@ -59,10 +60,10 @@ if errorlevel 1 (
     exit /b 1
 )
 
+:: Keep quoted REG /d outside a parenthesized block. cmd.exe otherwise
+:: misparses this command and aborts before the extension loop.
 reg add "HKCU\Software\Classes\%PROGID%\DefaultIcon" /ve /d "\"%EXE_PATH%\",0" /f >nul 2>&1
-if errorlevel 1 (
-    echo   [WARNING] Failed to set default icon (non-fatal).
-)
+if errorlevel 1 echo   [WARNING] Failed to set default icon (non-fatal).
 
 :: Remove known legacy application identities and ProgId before registering the current identity.
 reg delete "HKCU\Software\Classes\%LEGACY_PROGID%" /f >nul 2>&1
@@ -72,13 +73,12 @@ reg delete "HKCU\Software\LiteImageViewer" /f >nul 2>&1
 reg delete "HKCU\Software\RegisteredApplications" /v LiteImageViewer /f >nul 2>&1
 reg add "%APPKEY%" /v "%APP_MARKER%" /t REG_SZ /d "1" /f >nul 2>&1
 reg add "%APPKEY%\shell\open\command" /ve /d "\"%EXE_PATH%\" \"%%1\"" /f >nul 2>&1
-reg add "%APPKEY%\DefaultIcon" /ve /d "\"%EXE_PATH%\",0" /f >nul 2>&1
 if errorlevel 1 (
     echo   [ERROR] Failed to register fixed application identity.
     exit /b 1
 )
+reg add "%APPKEY%\DefaultIcon" /ve /d "\"%EXE_PATH%\",0" /f >nul 2>&1
 
-:: Register application capabilities and the fixed identity metadata.
 reg add "%CAPABILITIESKEY%" /v ApplicationName /t REG_SZ /d "ppkantu" /f >nul 2>&1
 reg add "%CAPABILITIESKEY%" /v ApplicationDescription /t REG_SZ /d "Windows image viewer" /f >nul 2>&1
 reg add "%CAPABILITIESKEY%" /v ApplicationIcon /t REG_SZ /d "\"%EXE_PATH%\",0" /f >nul 2>&1
@@ -94,6 +94,7 @@ echo.
 :: 2. Associate each extension with the ProgId
 :: ============================================
 echo [2/3] Associating file extensions...
+echo.
 
 set "EXTENSIONS=.jpg .jpeg .jpe .jfif .png .bmp .dib .gif .webp .tiff .tif .ico .wdp .jxr .hdp"
 set COUNT=0
